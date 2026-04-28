@@ -31,6 +31,10 @@ def sanitize(text: str) -> str:
             out.append(line)
             continue
 
+        # Strip Claude Code block-quote border outside code fences
+        if re.match(r'^\s*▎', line):
+            line = re.sub(r'^\s*▎\s?', '', line)
+
         # Empty line — paragraph break, always keep
         if not line:
             out.append(line)
